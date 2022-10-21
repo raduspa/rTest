@@ -60,7 +60,7 @@ module.exports = {
         "gradle"
       ],
       "matchPackagePatterns": [
-        "^org.kuali."
+        "^org.springframework"
       ],
       "enabled": true
     },
