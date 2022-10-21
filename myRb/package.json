@@ -12,8 +12,7 @@
         "rbuild": "npm run build-re2 && npm run build"
     },
     "dependencies": {
-        "renovate": "32.241.6",
-        "cross-env": "7.0.3"
+        "renovate": "32.217.0"
     },
     "license": "ISC"
 }
