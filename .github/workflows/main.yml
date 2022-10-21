@@ -1,0 +1,27 @@
+name: Renovate
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'info'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+env:
+  RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
+jobs:
+  renovate:
+    runs-on: windows-2019
+    steps:      
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 14.x          
+      - run: cd myRb && npm install && npm run rbuild
+        

@@ -1,0 +1,19 @@
+{
+    "name": "renovate-bot",
+    "version": "0.0.0",
+    "description": "RenovateBot",
+    "main": "app.js",
+    "author": {
+        "name": ""
+    },
+    "scripts": {
+        "build": "npx renovate",
+        "build-re2": "cd node_modules/re2 && npm run install && cd ../../",
+        "rbuild": "npm run build-re2 && npm run build"
+    },
+    "dependencies": {
+        "renovate": "32.241.6",
+        "cross-env": "7.0.3"
+    },
+    "license": "ISC"
+}

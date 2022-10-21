@@ -1,0 +1,118 @@
+// plugins {
+// 	id 'org.springframework.boot' version '2.4.4'
+// 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+// 	id 'java'
+// }
+
+/**
+ * USE build scripts not plugins
+ */
+buildscript {
+    ext {
+        springBootVersion='2.5.1'
+        springCloudVersion='2020.0.3'
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+description = "BeSpringBoot package from the COES_ClientProject"
+ext {
+    developerId = "myTeam"
+    developerName = "myTeam"
+    developerEmail = "myTeam@myTeam.my"
+}
+
+
+def projectFullName = "${name}-${version}"+".jar"
+def distName = "${name}-${version}"+".zip"
+println "Project artifact  ${projectFullName}"
+
+/*
+* MODULE FEDERATION SUPPORT
+*/
+
+task copyFiles(type: Copy){
+    println "Copy angular distribution "
+ 
+        from "../FeNGapp/dist/FeNGapp" 
+        into "src/main/resources/static"
+        exclude "**/*.tgz"
+ 
+}
+
+processResources.dependsOn("copyFiles")
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation('org.springframework.boot:spring-boot-starter-hateoas')
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+ 
+  	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('io.micrometer:micrometer-registry-prometheus:1.2.0')
+	runtime('com.h2database:h2')
+
+	implementation 'org.json:json:20171018'
+    implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '4.2.1'
+
+    compile group: 'org.kuali.maven.plugins', name: 'ingester-maven-plugin', version: '1.0.0-beta'
+
+    testImplementation 'junit:junit:4.12'
+	testImplementation('com.google.jimfs:jimfs:1.1')
+    testImplementation group: 'org.kuaqli.maven.plugins', name: 'ingester-maven-plugin', version: '1.0.0-beta'
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation ("org.springframework.boot:spring-boot-starter-test")
+ 
+
+	testCompile('com.google.jimfs:jimfs:1.1')
+	testCompile('com.fasterxml.jackson.module:jackson-module-jsonSchema:2.9.2')
+
+
+}
+/**
+* SET TEST PLATFORM 
+*/
+test {
+	useJUnitPlatform()
+}
+
+configurations {
+    // How to publish SpringBoot Projects
+    // https://docs.gradle.org/current/userguide/upgrading_version_6.html#publishing_spring_boot_applications
+   [apiElements, runtimeElements].each {
+       it.outgoing.artifacts.removeIf { it.buildDependencies.getDependencies(null).contains(jar) }
+       it.outgoing.artifact(bootJar)
+   }
+    // 
+    compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+/**
+* DEFINE WHAT TO PUBLISH
+**/
+publishing {
+        publications {
+            mavenPublication(MavenPublication) {
+            }
+        }
+    }
