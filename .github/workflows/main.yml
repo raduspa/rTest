@@ -13,6 +13,7 @@ on:
         - debug
 env:
   RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
+  LOG_LEVEL: debug
 jobs:
   renovate:
     runs-on: windows-2019
