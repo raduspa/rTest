@@ -3,7 +3,7 @@ module.exports = {
   onboardingConfig: {
     extends: ['config:base'],
   },
-  repositories: ['raduspa/renovateTest'],
+  repositories: ['raduspa/rTest'],
   requireConfig: "optional",
   onboarding: false,  
   logLevel: 'debug',
