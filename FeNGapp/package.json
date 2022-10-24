@@ -57,7 +57,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~10.9.0",
     "tslint": "~6.1.0",
-    "typescript": "4.1.5"
+    "typescript": "4.3.5"
   },
   "author": "Sample_ClientProject team",
   "description": "This is the FeNGapp package from the Sample_ClientProject repository"
