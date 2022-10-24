@@ -35,7 +35,7 @@
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-html-reporter": "^0.2.7",
     "karma-tfs-reporter": "^1.0.2",
-    "rxjs": "~6.6.0",
+    "rxjs": "~7.5.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },
